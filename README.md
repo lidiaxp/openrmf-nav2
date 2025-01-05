@@ -6,7 +6,7 @@ This docker was tested using ros2 humble version. Feel free to test other ros2 v
 The objective of this docker is set up robots within open-rmf and control them using nav2.
 
 # Installation
-To build the docker run:
+To build the docker:
 
 ```
 bash build.sh
