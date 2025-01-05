@@ -1,0 +1,58 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="failover_mode" default="false"/>
+  <arg name="gazebo_version" default='8'/>
+  <arg name="sim_update_rate" default='100'/>
+
+  <arg name="robot_name" default="tb3_1"/> 
+
+  <!-- Common launch -->
+  <include file="$(find-pkg-share rmf_demos)/hotel.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="failover_mode" value="$(var failover_mode)"/>
+  </include>
+
+  <!-- Simulation launch -->
+  <include file="$(find-pkg-share rmf_demos_gz)/simulation.launch.xml">
+    <arg name="map_name" value="hotel" />
+    <arg name="gazebo_version" value="$(var gazebo_version)" />
+    <arg name="sim_update_rate" value="$(var sim_update_rate)"/>
+  </include>
+
+  <!-- <node
+    pkg="robot_state_publisher"
+    exec="robot_state_publisher"
+    name="robot_state_publisher"
+    output="screen">
+    <param name="robot_description" value="$(find-pkg-share turtlebot3_description)/urdf/turtlebot3_burger.urdf"/>
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+  </node>
+
+  <include file="$(find-pkg-share nav2_bringup)/launch/tb3_simulation_launch.py">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="namespace" value="$(var robot_name)"/>
+    <arg name="params_file" value="$(find-pkg-share turtlebot3_navigation2)/param/nav2_params.yaml"/>
+  </include>
+
+  <node
+    pkg="rmf_fleet_adapter"
+    exec="robot_command_adapter"
+    name="rmf_tb3_adapter"
+    output="screen">
+    <param name="fleet_name" value="$(var rmf_fleet_name)"/>
+    <param name="robot_name" value="$(var robot_name)"/>
+    <param name="rmf_map" value="$(var rmf_map_name)"/>
+    <param name="config_file" value="$(find-pkg-share rmf_fleet_adapter)/config/tb3_adapter_config.yaml"/>
+  </node> -->
+
+  <!-- <node
+    pkg="rviz2"
+    exec="rviz2"
+    name="rviz2"
+    output="screen">
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+    <param name="config_file" value="$(find-pkg-share turtlebot3_navigation2)/rviz/nav2_default_view.rviz"/>
+  </node> -->
+</launch>
