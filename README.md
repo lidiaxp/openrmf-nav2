@@ -18,7 +18,7 @@ And, to execute:
 bash run.sh
 ```
 
-# How to use
+# How to use open-rmf
 
 To set up nav2 with open rmf, it is possible to leverage the [demos](https://github.com/open-rmf/rmf_demos/?tab=readme-ov-file#Office-World).
 
@@ -40,13 +40,25 @@ ros2 run rmf_demos_tasks dispatch_patrol -p coe lounge -n 3 --use_sim_time
 
 We have installed ```tmux``` within the docker, so you do not have to open several sessions to run these scripts, it is possible to run with ```tmux```.
 
+# How to use nav2
+
+Run each of these lines in a different terminal (use tmux to facilitate the management):
+
+```
+gazebo --verbose /usr/share/gazebo-11/worlds/empty.world -s libgazebo_ros_init.so -s libgazebo_ros_factory.so
+ros2 launch nav2_bringup navigation_launch.py
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map base_link
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_link base_scan
+ros2 launch nav2_bringup tb3_simulation_launch.py
+```
+
 # Missing Features
 
 At this moment, the docker have installed open-rmf and nav2. However, the integration is not completed. It is missing 4 crucial steps:
 
 - Set up custom (or even different) robots to open-rmf with the fleet manager;
 - Set up custom (or even different) environments to open-rmf;
-- Integrate nav2 with open-rmf;
+- Integrate nav2 with open-rmf, [example](https://github.com/open-rmf/free_fleet/);
 - Set up custom planners and controllers in nav2.
 
 To integrate nav2 with open-rmf, it is not a pre-requisite, but would be nice to already have set up custom robots, as we need to inform the description of the robot for the nav2.

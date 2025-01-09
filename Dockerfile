@@ -38,7 +38,10 @@ RUN apt-get update && apt-get install -y \
     liburdfdom-dev \
     libwebsocketpp-dev \
     ros-${ROS_DISTRO}-rmf-building-sim-common \
-    ros-${ROS_DISTRO}-rmf-building-sim-gz-plugins 
+    ros-${ROS_DISTRO}-rmf-building-sim-gz-plugins\
+    ros-${ROS_DISTRO}-turtlebot3 \
+    ros-${ROS_DISTRO}-turtlebot3-simulations \
+    ros-${ROS_DISTRO}-fastrtps 
 
 
 RUN pip3 install --no-cache-dir \
@@ -79,6 +82,13 @@ RUN . /opt/ros/$ROS_DISTRO/setup.sh \
     && export CC=gcc \
     && colcon build --symlink-install
 
+ENV TURTLEBOT3_MODEL=waffle
+ENV FASTRTPS_DEFAULT_PROFILES_FILE=/dev/null
+ENV FASTRTPS_SHM_PORT=0
+
+RUN echo 'alias kill_gazebo_server=pkill -9 gzserver' >> ~/.bashrc
+RUN echo 'alias kill_gazebo_client=pkill -9 gzclient' >> ~/.bashrc
+RUN echo 'export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models' >> ~/.bashrc
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 RUN echo "source /root/rmf_ws/install/setup.bash" >> ~/.bashrc
 SHELL ["/bin/bash", "-c"]
@@ -87,3 +97,30 @@ WORKDIR /root/rmf_ws
 
 ENTRYPOINT ["/bin/bash", "-c"]
 CMD ["source /root/rmf_ws/install/setup.bash && ros2 launch rmf_demos_gz office.launch.xml headless:=1"]
+
+# ros2 topic pub /goal_pose geometry_msgs/PoseStamped \
+# '{
+#   "header": {
+#     "frame_id": "map",
+#     "stamp": {
+#       "sec": 0,
+#       "nanosec": 0
+#     }
+#   },
+#   "pose": {
+#     "position": {
+#       "x": 0.0,
+#       "y": 0.0,
+#       "z": 0.0
+#     },
+#     "orientation": {
+#       "x": 0.0,
+#       "y": 0.0,
+#       "z": 0.0,
+#       "w": 0.0
+#     }
+#   }
+# }'
+
+# export FASTRTPS_DEFAULT_PROFILES_FILE=/dev/null
+# export FASTRTPS_SHM_PORT=0
