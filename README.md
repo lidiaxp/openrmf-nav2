@@ -45,11 +45,8 @@ We have installed ```tmux``` within the docker, so you do not have to open sever
 Run each of these lines in a different terminal (use tmux to facilitate the management):
 
 ```
-gazebo --verbose /usr/share/gazebo-11/worlds/empty.world -s libgazebo_ros_init.so -s libgazebo_ros_factory.so
-ros2 launch nav2_bringup navigation_launch.py
-ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map base_link
-ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_link base_scan
-ros2 launch nav2_bringup tb3_simulation_launch.py
+chmod +x scripts/run_turtlebot3_nav2.sh
+./scripts/run_turtlebot3_nav2.sh
 ```
 
 # Missing Features
