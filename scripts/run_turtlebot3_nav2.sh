@@ -33,11 +33,13 @@ tmux new-window -t $SESSION_NAME -n transforms
 echo "Publishing static transforms..."
 tmux send-keys -t $SESSION_NAME:3 "ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map base_link" C-m
 tmux split-window -t $SESSION_NAME:3
-tmux send-keys -t $SESSION_NAME:3.1 "ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_link odom" C-m
+tmux send-keys -t $SESSION_NAME:3.1 "ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 odom base_link" C-m
 tmux split-window -t $SESSION_NAME:3
 tmux send-keys -t $SESSION_NAME:3.2 "ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_link base_scan" C-m
 tmux split-window -t $SESSION_NAME:3
 tmux send-keys -t $SESSION_NAME:3.3 "ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom" C-m
+tmux split-window -t $SESSION_NAME:3
+tmux send-keys -t $SESSION_NAME:3.4 "ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_link base_footprint" C-m
 
 # Create a new window for the kill command
 tmux new-window -t $SESSION_NAME -n kill
