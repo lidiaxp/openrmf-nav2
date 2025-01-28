@@ -42,7 +42,7 @@ We have installed ```tmux``` within the docker, so you do not have to open sever
 
 # How to use nav2
 
-Run each of these lines in a different terminal (use tmux to facilitate the management):
+Run:
 
 ```
 chmod +x scripts/run_turtlebot3_nav2.sh
