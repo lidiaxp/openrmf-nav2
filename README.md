@@ -42,7 +42,9 @@ We have installed ```tmux``` within the docker, so you do not have to open sever
 
 # How to use nav2
 
-Run:
+Run ```gazebo``` in a terminal and wait until it opens. It can takes around 2 or 3 minutes. 
+
+When gazebo opens, close it, and run:
 
 ```
 chmod +x scripts/run_turtlebot3_nav2.sh
