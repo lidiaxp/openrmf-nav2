@@ -7,7 +7,6 @@ docker run -it --rm \
     -e XAUTHORITY=$XAUTH \
     -v $XAUTH:$XAUTH \
     -v $(pwd)/scripts:/root/rmf_ws/scripts \
-    -v $(pwd)/nav_scripts/nav2_sample_launch.py:/root/rmf_ws/src/navigation2/nav2_bringup/launch/nav2_sample_launch.py \
     --net=host \
     --privileged \
     nav2 \
