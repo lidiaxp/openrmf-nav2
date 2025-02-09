@@ -69,3 +69,11 @@ As I could understand, after create the plugin, you have to:
 - Modify the planner name in planner_server/ros_parameters;
 - Modify the controller name in controller_server/ros_parameters;
 - Modify the cmd_vel topic in collision_monitor/ros_parameters (considering we will use more than 1 robot, and consequently, need custom cmd_vel topics).
+
+# Utils
+
+## Several  terminals
+
+To use multiple terminals, you can start `tmux` when opening the Docker container. This allows you to manage multiple terminal sessions within the same container.
+
+Alternatively, on your computer, open a new terminal and run `bash new_terminal.sh`.

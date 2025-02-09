@@ -86,8 +86,8 @@ ENV TURTLEBOT3_MODEL=waffle
 ENV FASTRTPS_DEFAULT_PROFILES_FILE=/dev/null
 ENV FASTRTPS_SHM_PORT=0
 
-RUN echo 'alias kill_gazebo_server=pkill -9 gzserver' >> ~/.bashrc
-RUN echo 'alias kill_gazebo_client=pkill -9 gzclient' >> ~/.bashrc
+# RUN echo 'alias kill_gazebo_server=pkill -9 gzserver' >> ~/.bashrc
+# RUN echo 'alias kill_gazebo_client=pkill -9 gzclient' >> ~/.bashrc
 RUN echo 'export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models' >> ~/.bashrc
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 RUN echo "source /root/rmf_ws/install/setup.bash" >> ~/.bashrc
