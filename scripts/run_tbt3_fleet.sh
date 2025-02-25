@@ -68,3 +68,22 @@ tmux send-keys -t $SESSION_NAME:8 "" C-m
 
 echo "All processes started. Connecting to tmux..."
 tmux attach-session -t $SESSION_NAME
+
+# ros2 run rqt_tf_tree rqt_tf_tree
+# export ROS_DOMAIN_ID=55
+
+# # robot1 to run clockwise around the map
+# ros2 run rmf_demos_tasks dispatch_patrol \
+#   -p north_west north_east south_east south_west \
+#   -n 3 \
+#   -st 0 \
+#   -F turtlebot3 \
+#   -R robot1
+
+# # robot2 to run anti-clockwise around the map
+# ros2 run rmf_demos_tasks dispatch_patrol \
+#   -p south_west south_east north_east north_west \
+#   -n 3 \
+#   -st 0 \
+#   -F turtlebot3 \
+#   -R robot2
