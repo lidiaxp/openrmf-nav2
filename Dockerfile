@@ -21,11 +21,19 @@ RUN apt-get update && apt-get install -y \
     lld \
     libstdc++-12-dev 
 
+RUN echo "deb [trusted=yes] https://download.eclipse.org/zenoh/debian-repo/ /" >> /etc/apt/sources.list \
+    && apt-get update \
+    && apt-get install -y zenoh || true  
+
+RUN sed -i 's/^.*systemctl daemon-reload.*$/# &/' /var/lib/dpkg/info/zenohd.postinst \
+    && sed -i 's/^.*systemctl disable zenohd.*$/# &/' /var/lib/dpkg/info/zenohd.postinst
+
 RUN apt-get update && apt-get install -y \
     ros-${ROS_DISTRO}-nav2-bringup \
     ros-${ROS_DISTRO}-navigation2 \
     ros-${ROS_DISTRO}-nav2-simple-commander \
     ros-${ROS_DISTRO}-turtlebot3-simulations \
+    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
     ros-dev-tools \
     ros-${ROS_DISTRO}-rmf-building-map-tools \
     ros-${ROS_DISTRO}-control-msgs \
@@ -35,6 +43,7 @@ RUN apt-get update && apt-get install -y \
     ros-${ROS_DISTRO}-nlohmann-json-schema-validator-vendor \
     ros-${ROS_DISTRO}-vision-msgs \
     ros-${ROS_DISTRO}-ament-cmake-catch2 \
+    ros-${ROS_DISTRO}-tf-transformations \
     liburdfdom-dev \
     libwebsocketpp-dev \
     ros-${ROS_DISTRO}-rmf-building-sim-common \
@@ -51,7 +60,11 @@ RUN pip3 install --no-cache-dir \
     jinja2 \
     fastapi \
     uvicorn \
-    flask-socketio
+    flask-socketio \
+    eclipse-zenoh==1.1.0 \
+    pycdr2 \
+    rosbags \
+    nudged
 
 WORKDIR /root/rmf_ws/src
 RUN git clone https://github.com/open-rmf/rmf_demos.git -b 2.0.3 \
@@ -66,13 +79,26 @@ RUN git clone https://github.com/open-rmf/rmf_demos.git -b 2.0.3 \
     && git clone https://github.com/open-rmf/rmf_simulation.git -b $ROS_DISTRO \
     && git clone https://github.com/open-rmf/rmf_task.git \
     && git clone https://github.com/open-rmf/menge_vendor.git \
+    && git clone https://github.com/open-rmf/free_fleet.git \
     && git clone https://github.com/open-rmf/rmf_traffic.git -b $ROS_DISTRO \
     && git clone https://github.com/ament/ament_cmake.git -b $ROS_DISTRO \
     && git clone https://github.com/open-rmf/rmf_utils.git \
     && git clone https://github.com/ros-planning/navigation2.git -b $ROS_DISTRO \
     && git clone https://github.com/ros-controls/ros2_control.git -b $ROS_DISTRO
 
-    WORKDIR /root/rmf_ws
+ENV ZENOH_VERSION=1.1.0
+RUN wget -O zenoh-plugin-ros2dds.zip \
+    https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds/releases/download/${ZENOH_VERSION}/zenoh-plugin-ros2dds-${ZENOH_VERSION}-x86_64-unknown-linux-gnu-standalone.zip \
+    && unzip zenoh-plugin-ros2dds.zip \
+    && rm zenoh-plugin-ros2dds.zip
+
+RUN chmod +x /root/rmf_ws/install/free_fleet_adapter/lib/free_fleet_adapter/fleet_adapter.py
+
+RUN mkdir -p /root/rmf_ws/install/free_fleet_adapter/share/free_fleet_adapter/launch \
+    && mv /root/rmf_ws/install/free_fleet_adapter/share/free_fleet_adapter/fleet_adapter.launch.xml /root/rmf_ws/install/free_fleet_adapter/share/free_fleet_adapter/launch/
+
+WORKDIR /root/rmf_ws
+
 RUN . /opt/ros/$ROS_DISTRO/setup.sh \
     && rosdep update \
     && rosdep install --from-paths src --ignore-src -r -y
@@ -85,9 +111,15 @@ RUN . /opt/ros/$ROS_DISTRO/setup.sh \
 ENV TURTLEBOT3_MODEL=waffle
 ENV FASTRTPS_DEFAULT_PROFILES_FILE=/dev/null
 ENV FASTRTPS_SHM_PORT=0
+# ENV ROS_DOMAIN_ID=55
+
+ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+# ENV GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/turtlebot3_simulations/turtlebot3_gazebo/models
+ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 # RUN echo 'alias kill_gazebo_server=pkill -9 gzserver' >> ~/.bashrc
 # RUN echo 'alias kill_gazebo_client=pkill -9 gzclient' >> ~/.bashrc
+# tmux kill-session -t tbt3_fleet_manager & pkill -9 gzserver & pkill -9 gzclient
 RUN echo 'export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models' >> ~/.bashrc
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 RUN echo "source /root/rmf_ws/install/setup.bash" >> ~/.bashrc
