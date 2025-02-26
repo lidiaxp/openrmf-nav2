@@ -77,11 +77,11 @@ chmod +x scripts/run_turtlebot3_nav2.sh
 
 At this moment, the docker have installed open-rmf and nav2. However, the integration is not completed. It is missing 4 crucial steps:
 
-- [] Set up custom (or even different) robots to open-rmf with the fleet manager;
-- [] Set up custom (or even different) environments to open-rmf;
-- [X] Integrate nav2 with open-rmf, [example](https://github.com/open-rmf/free_fleet/);
-- [] Set up custom planners and controllers in nav2;
-- [] Add features of stairs.
+[] Set up custom (or even different) robots to open-rmf with the fleet manager;
+[] Set up custom (or even different) environments to open-rmf;
+[X] Integrate nav2 with open-rmf, [example](https://github.com/open-rmf/free_fleet/);
+[] Set up custom planners and controllers in nav2;
+[] Add features of stairs.
 
 To integrate nav2 with open-rmf, it is not a pre-requisite, but would be nice to already have set up custom robots, as we need to inform the description of the robot for the nav2.
 
