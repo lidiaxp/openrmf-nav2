@@ -47,7 +47,7 @@ For single robots:
 bash scripts/run_tbt3_single.sh
 ```
 
-After it, you also have to set the inital pose estimation on rviz. The, it is possible to send the tasks:
+After it, you also have to set the inital pose estimation on rviz. Then, it is possible to send the tasks:
 
 ```
 ros2 run rmf_demos_tasks dispatch_patrol -p north_west north_east south_east south_west -n 2 -st 0
