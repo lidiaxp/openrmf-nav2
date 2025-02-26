@@ -79,7 +79,7 @@ At this moment, the docker have installed open-rmf and nav2. However, the integr
 
 - [] Set up custom (or even different) robots to open-rmf with the fleet manager;
 - [] Set up custom (or even different) environments to open-rmf;
-- [X] Integrate nav2 with open-rmf, [example](https://github.com/open-rmf/free_fleet/);
+- [~] Integrate nav2 with open-rmf, [example](https://github.com/open-rmf/free_fleet/);
 - [] Set up custom planners and controllers in nav2;
 - [] Add features of stairs.
 
