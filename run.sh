@@ -7,6 +7,7 @@ docker run -it --rm \
     -e XAUTHORITY=$XAUTH \
     -v $XAUTH:$XAUTH \
     -v $(pwd)/scripts:/root/rmf_ws/scripts \
+    -v $(pwd)/scripts/tb3_sandbox.yaml:/opt/ros/jazzy/share/nav2_bringup/maps/tb3_sandbox.yaml \
     --net=host \
     --privileged \
     nav2 \

@@ -66,6 +66,10 @@ RUN pip3 install --no-cache-dir \
     rosbags \
     nudged
 
+RUN pip3 install --upgrade pip \
+    && pip3 uninstall -y Flask Flask-SocketIO python-engineio python-socketio Werkzeug \
+    && pip3 install Flask-SocketIO==4.3.1 python-engineio==3.13.2 python-socketio==4.6.0 Flask==2.0.3 Werkzeug==2.0.3
+
 WORKDIR /root/rmf_ws/src
 RUN git clone https://github.com/open-rmf/rmf_demos.git -b 2.0.3 \
     && git clone https://github.com/open-rmf/rmf.git \
@@ -92,11 +96,6 @@ RUN wget -O zenoh-plugin-ros2dds.zip \
     && unzip zenoh-plugin-ros2dds.zip \
     && rm zenoh-plugin-ros2dds.zip
 
-RUN chmod +x /root/rmf_ws/install/free_fleet_adapter/lib/free_fleet_adapter/fleet_adapter.py
-
-RUN mkdir -p /root/rmf_ws/install/free_fleet_adapter/share/free_fleet_adapter/launch \
-    && mv /root/rmf_ws/install/free_fleet_adapter/share/free_fleet_adapter/fleet_adapter.launch.xml /root/rmf_ws/install/free_fleet_adapter/share/free_fleet_adapter/launch/
-
 WORKDIR /root/rmf_ws
 
 RUN . /opt/ros/$ROS_DISTRO/setup.sh \
@@ -107,6 +106,13 @@ RUN . /opt/ros/$ROS_DISTRO/setup.sh \
     && export CXX=g++ \
     && export CC=gcc \
     && colcon build --symlink-install
+
+RUN chmod +x /root/rmf_ws/install/free_fleet_adapter/lib/free_fleet_adapter/fleet_adapter.py
+
+RUN mkdir -p /root/rmf_ws/install/free_fleet_adapter/share/free_fleet_adapter/launch \
+    && cp /root/rmf_ws/install/free_fleet_adapter/share/free_fleet_adapter/fleet_adapter.launch.xml /root/rmf_ws/install/free_fleet_adapter/share/free_fleet_adapter/launch/
+    
+RUN mkdir -p /opt/ros/jazzy/share/nav2_bringup/maps/
 
 ENV TURTLEBOT3_MODEL=waffle
 ENV FASTRTPS_DEFAULT_PROFILES_FILE=/dev/null
@@ -120,6 +126,7 @@ ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 # RUN echo 'alias kill_gazebo_server=pkill -9 gzserver' >> ~/.bashrc
 # RUN echo 'alias kill_gazebo_client=pkill -9 gzclient' >> ~/.bashrc
 # tmux kill-session -t tbt3_fleet_manager & pkill -9 gzserver & pkill -9 gzclient
+# tmux kill-session -t tbt3_single_fleet_manager & pkill -9 gzserver & pkill -9 gzclient
 RUN echo 'export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models' >> ~/.bashrc
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
 RUN echo "source /root/rmf_ws/install/setup.bash" >> ~/.bashrc
