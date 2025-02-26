@@ -58,7 +58,7 @@ For multi robots:
 bash scripts/run_tbt3_fleet.sh
 ```
 
-In this mode, it is missing to initialize the slam, as it is a multi robot problem, [I sent to the developers](https://github.com/open-rmf/free_fleet/issues/176).
+In this mode, it is missing to initialize the SLAM, as it is a multi robot problem, [I sent to the developers](https://github.com/open-rmf/free_fleet/issues/176) to figure out the best way to add it.
 
 For both cases, it is missing trying emulating different computers between the robots.
 
