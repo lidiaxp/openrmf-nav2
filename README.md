@@ -40,6 +40,28 @@ ros2 run rmf_demos_tasks dispatch_patrol -p coe lounge -n 3 --use_sim_time
 
 We have installed ```tmux``` within the docker, so you do not have to open several sessions to run these scripts, it is possible to run with ```tmux```.
 
+# How to use the fleet manager
+
+For single robots:
+```
+bash scripts/run_tbt3_single.sh
+```
+
+After it, you also have to set the inital pose estimation on rviz. The, it is possible to send the tasks:
+
+```
+ros2 run rmf_demos_tasks dispatch_patrol -p north_west north_east south_east south_west -n 2 -st 0
+```
+
+For multi robots:
+```
+bash scripts/run_tbt3_fleet.sh
+```
+
+In this mode, it is missing to initialize the slam, as it is a multi robot problem, [I sent to the developers](https://github.com/open-rmf/free_fleet/issues/176).
+
+For both cases, it is missing trying emulating different computers between the robots.
+
 # How to use nav2
 
 Run ```gazebo``` in a terminal and wait until it opens. It can takes around 2 or 3 minutes. 
