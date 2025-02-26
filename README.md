@@ -75,7 +75,7 @@ chmod +x scripts/run_turtlebot3_nav2.sh
 
 # Missing Features
 
-At this moment, the docker have installed open-rmf and nav2. However, the integration is not completed. It is missing 4 crucial steps:
+At this moment, the docker have installed open-rmf and nav2. However, the integration is not completed. It is missing 5 crucial steps:
 
 - [] Set up custom (or even different) robots to open-rmf with the fleet manager;
 - [] Set up custom (or even different) environments to open-rmf;
