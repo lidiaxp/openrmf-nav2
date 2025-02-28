@@ -58,9 +58,9 @@ For multi robots:
 bash scripts/run_tbt3_fleet.sh
 ```
 
-You have to click `Startup` in both RVIZ to start the SLAM, and the set up the initial pose estimation.
+You have to click `Startup` in both RVIZ to start the SLAM, and the set up the initial pose estimation. To send the commands to the robots, we have default commads in the terminal 6 (to the robot 1) and 7 (to the robot 2).
 
-For both cases, it is missing trying emulating different computers between the robots.
+- For both cases (single and multi robots), it is missing trying emulating different computers between the robots.
 
 # How to use nav2
 
