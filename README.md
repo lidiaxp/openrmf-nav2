@@ -38,7 +38,7 @@ You can also request the robot to move back and forth between `coe` and `lounge`
 ros2 run rmf_demos_tasks dispatch_patrol -p coe lounge -n 3 --use_sim_time
 ```
 
-We have installed ```tmux``` within the docker, so you do not have to open several sessions to run these scripts, it is possible to run with ```tmux```.
+We have installed `tmux` within the docker, so you do not have to open several sessions to run these scripts, it is possible to run with `tmux`.
 
 # How to use the fleet manager
 
@@ -47,7 +47,7 @@ For single robots:
 bash scripts/run_tbt3_single.sh
 ```
 
-After it, you also have to set the inital pose estimation on rviz. Then, it is possible to send the tasks:
+After it, you also have to set the inital pose estimation on RVIZ. Then, it is possible to send the tasks:
 
 ```
 ros2 run rmf_demos_tasks dispatch_patrol -p north_west north_east south_east south_west -n 2 -st 0
@@ -58,13 +58,13 @@ For multi robots:
 bash scripts/run_tbt3_fleet.sh
 ```
 
-In this mode, it is missing to initialize the SLAM, as it is a multi robot problem, [I sent to the developers](https://github.com/open-rmf/free_fleet/issues/176) to figure out the best way to add it.
+You have to click `Startup` in both RVIZ to start the SLAM, and the set up the initial pose estimation.
 
 For both cases, it is missing trying emulating different computers between the robots.
 
 # How to use nav2
 
-Run ```gazebo``` in a terminal and wait until it opens. It can takes around 2 or 3 minutes. 
+Run `gazebo` in a terminal and wait until it opens. It can takes around 2 or 3 minutes. 
 
 When gazebo opens, close it, and run:
 
@@ -79,7 +79,7 @@ At this moment, the docker have installed open-rmf and nav2. However, the integr
 
 - [] Set up custom (or even different) robots to open-rmf with the fleet manager;
 - [] Set up custom (or even different) environments to open-rmf;
-- [~] Integrate nav2 with open-rmf, [example](https://github.com/open-rmf/free_fleet/);
+- [~] Integrate nav2 with open-rmf, [example](https://github.com/open-rmf/free_fleet/) (Missing simulate in different computers/networks/robots);
 - [] Set up custom planners and controllers in nav2;
 - [] Add features of stairs.
 
