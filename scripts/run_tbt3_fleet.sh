@@ -24,22 +24,22 @@ sleep 1
 
 tmux new-window -t $SESSION_NAME -n free_fleet_world
 echo "Launching Free Fleet TurtleBot3 World RMF..."
-tmux send-keys -t $SESSION_NAME:4 "ros2 launch free_fleet_examples turtlebot3_world_rmf_common.launch.xml" C-m
+tmux send-keys -t $SESSION_NAME:4 "export ROS_DOMAIN_ID=55 && ros2 launch free_fleet_examples turtlebot3_world_rmf_common.launch.xml" C-m
 sleep 1
 
 tmux new-window -t $SESSION_NAME -n fleet_adapter
 echo "Launching Free Fleet Nav2 Unique Multi TB3 Simulation Fleet Adapter..."
-tmux send-keys -t $SESSION_NAME:5 "ros2 launch free_fleet_examples nav2_unique_multi_tb3_simulation_fleet_adapter.launch.xml" C-m
+tmux send-keys -t $SESSION_NAME:5 "export ROS_DOMAIN_ID=55 && ros2 launch free_fleet_examples nav2_unique_multi_tb3_simulation_fleet_adapter.launch.xml" C-m
 sleep 1
 
 tmux new-window -t $SESSION_NAME -n send_commands_r1
 echo "Sending commands to robot 1 ..."
-tmux send-keys -t $SESSION_NAME:6 "ros2 run rmf_demos_tasks dispatch_patrol -p north_west north_east south_east south_west -n 3 -st 0 -F turtlebot3 -R robot1" " "
+tmux send-keys -t $SESSION_NAME:6 "export ROS_DOMAIN_ID=55 && ros2 run rmf_demos_tasks dispatch_patrol -p north_west north_east south_east south_west -n 3 -st 0 -F turtlebot3 -R robot1" " "
 sleep 0.5
 
 tmux new-window -t $SESSION_NAME -n send_commands_r2
 echo "Sending commands to robot 2 ..."
-tmux send-keys -t $SESSION_NAME:7 "ros2 run rmf_demos_tasks dispatch_patrol -p south_west south_east north_east north_west -n 3 -st 0 -F turtlebot3 -R robot2" " "
+tmux send-keys -t $SESSION_NAME:7 "export ROS_DOMAIN_ID=55 && ros2 run rmf_demos_tasks dispatch_patrol -p south_west south_east north_east north_west -n 3 -st 0 -F turtlebot3 -R robot2" " "
 sleep 0.5
 
 tmux new-window -t $SESSION_NAME -n kill
@@ -51,4 +51,3 @@ echo "All processes started. Connecting to tmux..."
 tmux attach-session -t $SESSION_NAME
 
 # ros2 run rqt_tf_tree rqt_tf_tree
-# export ROS_DOMAIN_ID=55
