@@ -60,8 +60,6 @@ bash scripts/run_tbt3_fleet.sh
 
 You have to click `Startup` in both RVIZ to start the SLAM, and the set up the initial pose estimation. To send the commands to the robots, we have default commads in the terminal 6 (to the robot 1) and 7 (to the robot 2).
 
-- For both cases (single and multi robots), it is missing trying emulating different computers between the robots.
-
 # How to use nav2
 
 Run `gazebo` in a terminal and wait until it opens. It can takes around 2 or 3 minutes. 
@@ -79,7 +77,7 @@ At this moment, the docker have installed open-rmf and nav2. However, the integr
 
 - [] Set up custom (or even different) robots to open-rmf with the fleet manager;
 - [] Set up custom (or even different) environments to open-rmf;
-- [~] Integrate nav2 with open-rmf, [example](https://github.com/open-rmf/free_fleet/) (Missing simulate in different computers/networks/robots);
+- [X] Integrate nav2 with open-rmf, [example](https://github.com/open-rmf/free_fleet/);
 - [] Set up custom planners and controllers in nav2;
 - [] Add features of stairs.
 
